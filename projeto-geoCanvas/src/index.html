@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoCanvas - Aprendendo APIs HTML5</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>GeoCanvas - HTML5 APIs</h1>
+        <nav>
+            <ul>
+                <li><a href="#drag-drop-section">Drag & Drop</a></li>
+                <li><a href="#camera-section">Câmera</a></li>
+                <li><a href="#geolocation-section">Geolocalização</a></li>
+                <li><a href="#canvas-section">Canvas</a></li>
+                <li><a href="#async-section">Requisições Assíncronas</a></li>
+                <li><a href="#storage-section">Web Storage</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1.5.1 Drag and Drop -->
+        <section id="drag-drop-section" class="api-section">
+            <h2>1.5.1 Drag and Drop API</h2>
+            <div class="example-container">
+                <div id="draggable-container">
+                    <div class="draggable" draggable="true" id="draggable-1">Arraste-me 1</div>
+                    <div class="draggable" draggable="true" id="draggable-2">Arraste-me 2</div>
+                    <div class="draggable" draggable="true" id="draggable-3">Arraste-me 3</div>
+                </div>
+                <div id="droppable-area">
+                    <p>Solte os itens aqui</p>
+                </div>
+                <button id="reset-drag-drop">Resetar</button>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p>A API de Drag and Drop permite que elementos HTML sejam arrastados e soltos em alvos específicos.</p>
+                <p>Eventos principais: <code>dragstart</code>, <code>dragover</code>, <code>dragleave</code>, <code>drop</code>.</p>
+            </div>
+        </section>
+
+        <!-- 1.5.2 Câmera -->
+        <section id="camera-section" class="api-section">
+            <h2>1.5.2 API de Câmera</h2>
+            <div class="example-container">
+                <div id="camera-container">
+                    <video id="camera-preview" autoplay playsinline></video>
+                    <canvas id="camera-canvas" style="display: none;"></canvas>
+                    <div class="camera-controls">
+                        <button id="start-camera">Iniciar Câmera</button>
+                        <button id="capture-photo">Capturar Foto</button>
+                        <button id="switch-camera">Trocar Câmera</button>
+                    </div>
+                    <div id="camera-output">
+                        <h3>Fotos Capturadas:</h3>
+                        <div id="captured-photos"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p>Utilizamos a API <code>MediaDevices.getUserMedia()</code> para acessar a câmera do dispositivo.</p>
+                <p>A captura de imagem é feita desenhando um frame do vídeo em um elemento canvas.</p>
+            </div>
+        </section>
+
+        <!-- 1.5.3 Geolocation -->
+        <section id="geolocation-section" class="api-section">
+            <h2>1.5.3 API de Geolocalização</h2>
+            <div class="example-container">
+                <div id="geolocation-container">
+                    <button id="get-location">Obter Localização</button>
+                    <div id="location-info">
+                        <p>Latitude: <span id="latitude">--</span></p>
+                        <p>Longitude: <span id="longitude">--</span></p>
+                        <p>Precisão: <span id="accuracy">--</span> metros</p>
+                    </div>
+                    <div id="map-container">
+                        <!-- Mapa será inserido aqui -->
+                    </div>
+                </div>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p>A API Geolocation permite acessar a localização do usuário através dos métodos:</p>
+                <p><code>navigator.geolocation.getCurrentPosition()</code> para posição única</p>
+                <p><code>navigator.geolocation.watchPosition()</code> para monitoramento contínuo</p>
+            </div>
+        </section>
+
+        <!-- 1.6 Canvas -->
+        <section id="canvas-section" class="api-section">
+            <h2>1.6 Canvas API</h2>
+            <div class="example-container">
+                <div id="canvas-container">
+                    <canvas id="drawing-canvas" width="600" height="400"></canvas>
+                    <div class="canvas-controls">
+                        <div class="control-group">
+                            <label for="brush-color">Cor:</label>
+                            <input type="color" id="brush-color" value="#000000">
+                        </div>
+                        <div class="control-group">
+                            <label for="brush-size">Tamanho:</label>
+                            <input type="range" id="brush-size" min="1" max="50" value="5">
+                        </div>
+                        <button id="clear-canvas">Limpar</button>
+                        <button id="save-canvas">Salvar Desenho</button>
+                    </div>
+                    <div id="saved-drawings"></div>
+                </div>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p>O Canvas é um elemento HTML que permite desenhar gráficos via JavaScript.</p>
+                <p>Usamos o contexto do canvas (<code>getContext('2d')</code>) para acessar métodos de desenho.</p>
+                <p>Principais métodos: <code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>, <code>stroke()</code>.</p>
+            </div>
+        </section>
+
+        <!-- 1.7 Requisições Assíncronas -->
+        <section id="async-section" class="api-section">
+            <h2>1.7 Requisições Assíncronas</h2>
+            <div class="example-container">
+                <div id="async-container">
+                    <div class="api-controls">
+                        <select id="api-endpoint">
+                            <option value="users">Usuários</option>
+                            <option value="posts">Posts</option>
+                            <option value="comments">Comentários</option>
+                        </select>
+                        <button id="fetch-data">Buscar Dados</button>
+                    </div>
+                    <div class="implementation-toggle">
+                        <button class="active" data-implementation="fetch">Fetch API</button>
+                        <button data-implementation="xhr">XMLHttpRequest</button>
+                        <button data-implementation="async-await">Async/Await</button>
+                    </div>
+                    <div id="loading-indicator" class="hidden">Carregando...</div>
+                    <div id="api-results"></div>
+                </div>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p>Demonstração de diferentes métodos para fazer requisições assíncronas:</p>
+                <ul>
+                    <li><code>Fetch API</code>: Interface moderna baseada em Promises</li>
+                    <li><code>XMLHttpRequest</code>: Método tradicional baseado em callbacks</li>
+                    <li><code>Async/Await</code>: Sintaxe moderna que torna o código assíncrono mais legível</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 1.8 Web Storage -->
+        <section id="storage-section" class="api-section">
+            <h2>1.8 Web Storage</h2>
+            <div class="example-container">
+                <div id="storage-container">
+                    <div class="storage-tabs">
+                        <button class="tab-button active" data-tab="local-storage">LocalStorage</button>
+                        <button class="tab-button" data-tab="session-storage">SessionStorage</button>
+                    </div>
+                    <div class="tab-content active" id="local-storage">
+                        <h3>LocalStorage</h3>
+                        <div class="storage-form">
+                            <div class="form-group">
+                                <label for="local-key">Chave:</label>
+                                <input type="text" id="local-key">
+                            </div>
+                            <div class="form-group">
+                                <label for="local-value">Valor:</label>
+                                <input type="text" id="local-value">
+                            </div>
+                            <button id="local-save">Salvar</button>
+                        </div>
+                        <div class="storage-items">
+                            <h4>Itens Salvos:</h4>
+                            <ul id="local-items"></ul>
+                            <button id="local-clear">Limpar Tudo</button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="session-storage">
+                        <h3>SessionStorage</h3>
+                        <div class="storage-form">
+                            <div class="form-group">
+                                <label for="session-key">Chave:</label>
+                                <input type="text" id="session-key">
+                            </div>
+                            <div class="form-group">
+                                <label for="session-value">Valor:</label>
+                                <input type="text" id="session-value">
+                            </div>
+                            <button id="session-save">Salvar</button>
+                        </div>
+                        <div class="storage-items">
+                            <h4>Itens Salvos:</h4>
+                            <ul id="session-items"></ul>
+                            <button id="session-clear">Limpar Tudo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="explanation">
+                <h3>Como funciona:</h3>
+                <p><strong>LocalStorage:</strong> Armazena dados sem expiração, persistindo mesmo quando o navegador é fechado.</p>
+                <p><strong>SessionStorage:</strong> Mantém dados apenas durante a sessão (até o navegador ser fechado).</p>
+                <p>Métodos principais: <code>setItem()</code>, <code>getItem()</code>, <code>removeItem()</code>, <code>clear()</code>.</p>
+            </div>
+        </section>
+
+        <!-- Seção de Projeto Integrado -->
+        <section id="integrated-project" class="api-section">
+            <h2>Projeto Integrado: GeoCanvas</h2>
+            <p>Este projeto combina todas as APIs aprendidas em uma aplicação única:</p>
+            <ul>
+                <li>Captura fotos com a câmera</li>
+                <li>Obtém a localização do usuário</li>
+                <li>Permite desenhar no canvas</li>
+                <li>Arrasta e solta elementos na interface</li>
+                <li>Armazena dados localmente</li>
+                <li>Faz requisições assíncronas para obter dados</li>
+            </ul>
+            <button id="start-project">Iniciar Projeto Integrado</button>
+            <div id="integrated-app" class="hidden">
+                <!-- Conteúdo do projeto integrado será carregado dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>GeoCanvas - Aplicação educacional para demonstração de APIs HTML5</p>
+        <p>&copy; 2025 - Exemplo para fins educacionais</p>
+    </footer>
+
+    <!-- Scripts serão injetados pelo webpack -->
+</body>
+</html>
